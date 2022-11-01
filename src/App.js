@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+} from "firebase/auth"
 import ComposeWindow from "./components/ComposeWindow"
 import Timeline from "./components/Timeline"
 
@@ -25,9 +31,35 @@ function App() {
   // Initialize cloud firestore and get a reference to the service
   const db = getFirestore(app)
 
+  //Initialize firebase authentication
+  const authentication = getAuth()
+
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider()
+    signInWithPopup(authentication, provider)
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const signOutWithGoogle = () => {
+    signOut(authentication)
+      .then(() => {
+        console.log("sign out successful")
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   return (
     <div className="App">
       <p>Twitter ^_^</p>
+      <button onClick={signInWithGoogle}>Sign in</button>
+      <button onClick={signOutWithGoogle}>Sign out</button>
       <ComposeWindow db={db} />
       <Timeline />
     </div>
