@@ -1,15 +1,13 @@
 import React, { useState } from "react"
 import { collection, addDoc } from "firebase/firestore"
 
-function ComposeWindow({ db }) {
+function ComposeWindow({ db, displayName }) {
   const [formData, setFormData] = useState({
-    user: "default",
     message: "",
   })
 
   const resetFormData = () => {
     setFormData({
-      user: "default",
       message: "",
     })
   }
@@ -17,8 +15,8 @@ function ComposeWindow({ db }) {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      const docRef = await addDoc(collection(db, "tweet"), {
-        user: formData.user,
+      const docRef = await addDoc(collection(db, "tweets"), {
+        user: displayName,
         message: formData.message,
       })
       console.log("Doccument written with ID: ", docRef.id)
