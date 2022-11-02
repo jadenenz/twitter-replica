@@ -12,10 +12,21 @@ import ComposeWindow from "./components/ComposeWindow"
 import Timeline from "./components/Timeline"
 import "./css/blocks/layout.css"
 import "./css/blocks/brand.css"
+import "./css/blocks/sidebar-menu.css"
+import "./css/blocks/tweet.css"
 import twitterSVG from "./svg/twitter.svg"
+import homeSVG from "./svg/home.svg"
+import exploreSVG from "./svg/explore.svg"
+import messagesSVG from "./svg/messages.svg"
+import moreSVG from "./svg/more.svg"
+import notificationsSVG from "./svg/notifications.svg"
+import profileSVG from "./svg/profile.svg"
 
 function App() {
-  const [displayName, setDisplayName] = useState()
+  const [userInfo, setUserInfo] = useState({
+    displayName: "",
+    photoURL: "",
+  })
 
   const firebaseConfig = {
     apiKey: "AIzaSyAb0LqPzcFSz5CViR6Cf20PXHiyanOEN14",
@@ -45,10 +56,16 @@ function App() {
     if (user) {
       //User is signed in
       const newDisplayName = user.displayName
-      setDisplayName(newDisplayName)
+      const newPhotoURL = user.photoURL
+      setUserInfo({
+        displayName: newDisplayName,
+        photoURL: newPhotoURL,
+      })
     } else {
-      const newDisplayName = undefined
-      setDisplayName(newDisplayName)
+      setUserInfo({
+        displayName: undefined,
+        photoURL: undefined,
+      })
     }
   })
 
@@ -76,63 +93,68 @@ function App() {
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
+        <button onClick={signInWithGoogle}>Sign in</button>
+        <button onClick={signOutWithGoogle}>Sign out</button>
         <img src={twitterSVG} alt="twitter icon" className="brand" />
-        Left sidebar
+        <div className="sidebar-menu">
+          <div className="sidebar-menu__item sidebar-menu__item--active">
+            <img
+              src={homeSVG}
+              alt="home icon"
+              className="sidebar-menu__item-icon"
+            />
+            Home
+          </div>
+          <div className="sidebar-menu__item">
+            <img
+              src={exploreSVG}
+              alt="explore icon"
+              className="sidebar-menu__item-icon"
+            />
+            Explore
+          </div>
+          <div className="sidebar-menu__item">
+            <img
+              src={notificationsSVG}
+              alt="notifications icon"
+              className="sidebar-menu__item-icon"
+            />
+            Notifications
+          </div>
+          <div className="sidebar-menu__item">
+            <img
+              src={messagesSVG}
+              alt="messages icon"
+              className="sidebar-menu__item-icon"
+            />
+            Messages
+          </div>
+          <div className="sidebar-menu__item">
+            <img
+              src={profileSVG}
+              alt="profile icon"
+              className="sidebar-menu__item-icon"
+            />
+            Profile
+          </div>
+          <div className="sidebar-menu__item">
+            <img
+              src={moreSVG}
+              alt="more icon"
+              className="sidebar-menu__item-icon"
+            />
+            More
+          </div>
+        </div>
       </div>
       <div className="layout__main">
-        Main Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-        imperdiet elit ac aliquam sodales. Cras scelerisque ornare rhoncus.
-        Maecenas ut vehicula lorem. In facilisis risus sem, sed suscipit massa
-        convallis non. Morbi vel risus quis neque tincidunt iaculis et eu
-        sapien. In non tristique nisl, pretium placerat erat. Maecenas nulla
-        est, fermentum sed tempus in, sollicitudin a nisi. Aliquam finibus
-        rhoncus maximus. Morbi eget orci sit amet elit blandit tincidunt.
-        Vivamus feugiat quis velit vel accumsan. Cras pharetra, diam luctus
-        fermentum ultricies, nisl sem auctor massa, vel tincidunt risus odio nec
-        velit. Proin faucibus vehicula est in varius. Pellentesque nulla mauris,
-        consequat gravida blandit efficitur, sodales sit amet sem. Nullam
-        congue, ex in vehicula luctus, diam velit egestas est, vel aliquam mi
-        nibh sollicitudin nunc. Donec ultrices, lorem a eleifend ultricies,
-        lacus tellus ullamcorper erat, in rutrum elit arcu eget ligula. Etiam
-        sollicitudin lorem vel hendrerit porttitor. Sed a tortor aliquam, tempor
-        ligula fringilla, hendrerit nulla. Donec ut leo dui. Nulla facilisi.
-        Nulla ac augue non sapien cursus commodo. Nam suscipit imperdiet
-        hendrerit. Integer mollis vehicula vulputate. Nulla neque mauris,
-        consectetur nec nulla accumsan, aliquet maximus elit. Curabitur eget
-        erat sapien. Sed a arcu dolor. Aliquam condimentum lectus purus, eget
-        euismod mi tincidunt a. Quisque eu nibh varius, bibendum libero quis,
-        aliquet leo. Vestibulum vel ultricies purus, in porta erat. Etiam
-        venenatis dui vestibulum lorem dictum, sit amet faucibus nulla suscipit.
-        Fusce hendrerit sed ipsum sit amet sagittis. Donec eu egestas purus,
-        quis mattis libero. Praesent quis diam fringilla, maximus leo in,
-        viverra nisi. Integer euismod mi id massa venenatis, auctor fermentum
-        purus ultricies. Praesent vel dolor eget velit mollis tempor. Donec
-        rutrum ipsum sed mi rhoncus, eu molestie massa dapibus. Sed vehicula et
-        ligula sed aliquam. Interdum et malesuada fames ac ante ipsum primis in
-        faucibus. Mauris blandit ipsum sit amet sapien dapibus semper. Integer
-        ultrices metus sit amet leo ornare eleifend. Phasellus pretium
-        ullamcorper nisl id elementum. Cras varius quam arcu, sed pharetra risus
-        gravida at. Vivamus mattis risus nec varius ultricies. Quisque in
-        iaculis arcu, sed feugiat odio. Suspendisse eget porta tellus, a
-        molestie orci. Etiam euismod, nisl nec scelerisque eleifend, augue urna
-        elementum ipsum, eu dapibus nunc lectus eu mi. Etiam ornare at lorem
-        vitae hendrerit. Suspendisse pellentesque libero nec lacinia congue.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo
-        felis vitae est egestas pretium. Aliquam orci diam, eleifend euismod
-        semper id, luctus ut mi. Sed egestas tempor tellus, ac fermentum eros
-        finibus a. Aliquam ut cursus lectus, at ornare metus. In hac habitasse
-        platea dictumst. Morbi fermentum, ex vel ultricies lacinia, ex orci
-        dictum risus, at porttitor erat orci nec metus.{" "}
+        <div className="App">
+          <ComposeWindow db={db} userInfo={userInfo} />
+          <Timeline db={db} />
+        </div>
       </div>
       <div className="layout__right-sidebar-container">
         <div className="layout__right-sidebar">Right sidebar</div>
-      </div>
-      <div className="App">
-        <p>Twitter ^_^</p>
-        <button onClick={signInWithGoogle}>Sign in</button>
-        <button onClick={signOutWithGoogle}>Sign out</button>
-        <ComposeWindow db={db} displayName={displayName} />
-        <Timeline db={db} />
       </div>
     </div>
   )

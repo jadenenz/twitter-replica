@@ -28,7 +28,14 @@ function Timeline({ db }) {
   }, [db])
 
   const tweetDivs = tweets.map((tweet, index) => {
-    return <Tweet message={tweet.message} user={tweet.user} key={index} />
+    return (
+      <Tweet
+        message={tweet.message}
+        user={tweet.user}
+        imgURL={tweet.photoURL}
+        key={index}
+      />
+    )
   })
 
   return (
