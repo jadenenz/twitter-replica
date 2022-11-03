@@ -10,10 +10,13 @@ import {
 } from "firebase/auth"
 import ComposeWindow from "./components/ComposeWindow"
 import Timeline from "./components/Timeline"
+import RightSidebar from "./components/RightSidebar"
+import "./css/global.css"
 import "./css/blocks/layout.css"
 import "./css/blocks/brand.css"
 import "./css/blocks/sidebar-menu.css"
 import "./css/blocks/tweet.css"
+import "./css/blocks/trends-for-you.css"
 import twitterSVG from "./svg/twitter.svg"
 import homeSVG from "./svg/home.svg"
 import exploreSVG from "./svg/explore.svg"
@@ -153,9 +156,7 @@ function App() {
           <Timeline db={db} />
         </div>
       </div>
-      <div className="layout__right-sidebar-container">
-        <div className="layout__right-sidebar">Right sidebar</div>
-      </div>
+      <RightSidebar />
     </div>
   )
 }
