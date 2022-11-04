@@ -25,7 +25,6 @@ import messagesSVG from "./svg/messages.svg"
 import moreSVG from "./svg/more.svg"
 import notificationsSVG from "./svg/notifications.svg"
 import profileSVG from "./svg/profile.svg"
-
 function App() {
   const [userInfo, setUserInfo] = useState({
     displayName: "",
@@ -164,7 +163,7 @@ function App() {
 
 export default App
 
-//Next is at least starting the html and css layout
+//Figure out how to manipulate images uploaded by input: file for tweeting pictures!!!
 //Proptypes when props become more complex !! user authentication works for now but will be improved soon.
 
 //Setup the ability to compose a tweet, have it store in database, and have it show up on Timeline.

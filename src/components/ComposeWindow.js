@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { collection, addDoc } from "firebase/firestore"
+import imageSVG from "../svg/image.svg"
 
 function ComposeWindow({ db, userInfo }) {
   const [formData, setFormData] = useState({
@@ -54,16 +55,32 @@ function ComposeWindow({ db, userInfo }) {
             name="message"
             value={formData.message}
           ></input>
-          <div className="compose-window__buttons-container">
-            <div className="compose-window__svg-container"></div>
+          <div className="compose-window__button-container">
+            <div className="compose-window__svg-container">
+              <div className="image-upload">
+                <label htmlFor="file-input">
+                  <img
+                    className="compose-window__svg-icon"
+                    src={imageSVG}
+                    alt="img upload button icon"
+                  />
+                </label>
+
+                <input
+                  id="file-input"
+                  type="file"
+                  accept="image/png, image/jpeg"
+                />
+              </div>
+            </div>
+            <button
+              className="compose-window__submit-button"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Tweet
+            </button>
           </div>
-          <button
-            className="compose-window__submit-button"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Tweet
-          </button>
         </form>
       </div>
     </div>
