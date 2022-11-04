@@ -38,19 +38,34 @@ function ComposeWindow({ db, userInfo }) {
   }
 
   return (
-    <div className="ComposeWindow">
-      <form className="compose--form">
-        <input
-          type="text"
-          onChange={handleChange}
-          placeholder="What's happening?"
-          name="message"
-          value={formData.message}
-        ></input>
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
+    <div className="compose-window">
+      <img
+        className="compose-window__author-logo"
+        alt="user logo"
+        src={userInfo.photoURL}
+      />
+      <div className="compose-window__right-side">
+        <form className="compose-window__form">
+          <input
+            className="compose-window__input"
+            type="text"
+            onChange={handleChange}
+            placeholder="What's happening?"
+            name="message"
+            value={formData.message}
+          ></input>
+          <div className="compose-window__buttons-container">
+            <div className="compose-window__svg-container"></div>
+          </div>
+          <button
+            className="compose-window__submit-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Tweet
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

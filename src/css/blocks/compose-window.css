@@ -1,0 +1,36 @@
+.compose-window {
+  border-bottom: 1px solid #e6ecf0;
+  display: flex;
+}
+
+.compose-window__form {
+  display: flex;
+}
+
+.compose-window__author-logo {
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.compose-window__right-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.compose-window__input {
+  width: 500px;
+  border: none;
+}
+
+.compose-window__submit-button {
+  background-color: rgb(29, 155, 240);
+  color: white;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0);
+  min-height: 36px;
+  min-width: 36px;
+}
