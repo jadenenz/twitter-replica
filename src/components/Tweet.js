@@ -1,8 +1,16 @@
 import React from "react"
 
-function Tweet({ message, user, userImgURL, uploadImgUrl }) {
-  //This component will populate timeline, be passed props for username and tweet message content (setup proptypes for this I suppose).
-  //The data will be collected from the database in Timeline.js
+function Tweet({ message, user, userImgURL, uploadImgURL }) {
+  // const lookInside = {
+  //   message: message,
+  //   user: user,
+  //   userImgURL: userImgURL,
+  //   uploadImgUrl: uploadImgUrl,
+  // }
+
+  // console.log(lookInside)
+
+  console.log(message, uploadImgURL, userImgURL)
 
   return (
     <div className="tweet">
@@ -19,10 +27,10 @@ function Tweet({ message, user, userImgURL, uploadImgUrl }) {
           <div className="tweet__publish-time">38m</div>
         </div>
         <div className="tweet__content">{message}</div>
-        {uploadImgUrl !== undefined && (
+        {uploadImgURL && (
           <img
             className="tweet__image"
-            src={uploadImgUrl}
+            src={uploadImgURL}
             alt="user uploaded file"
           />
         )}

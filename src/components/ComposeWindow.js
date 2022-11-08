@@ -30,16 +30,17 @@ function ComposeWindow({ db, userInfo, authentication }) {
 
   async function handleSubmit(e) {
     e.preventDefault()
-
     try {
       const docRef = await addDoc(collection(db, "tweets"), {
         user: userInfo.displayName,
         message: formData.message,
-        userPhotoUrl: userInfo.photoURL,
+        userPhotoURL: userInfo.photoURL,
       })
       console.log("Doccument written with ID: ", docRef.id)
       //If the tweet has an attached image
-      handleImageUpload(docRef)
+      if (currentUploadedImage) {
+        handleImageUpload(docRef)
+      }
     } catch (e) {
       console.error("Error adding document: ", e)
     }
@@ -74,11 +75,11 @@ function ComposeWindow({ db, userInfo, authentication }) {
       )
 
       //generate public URL for the file
-      const publicImageUrl = await getDownloadURL(newImageRef)
+      const publicImageURL = await getDownloadURL(newImageRef)
 
       //Update tweet with image's URL
       await updateDoc(docRef, {
-        imageUrl: publicImageUrl,
+        imageURL: publicImageURL,
       })
     } catch (error) {
       console.error(

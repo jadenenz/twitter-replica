@@ -13,13 +13,13 @@ function Timeline({ db }) {
       didInit = true
       async function getTweets() {
         console.log("getTweets() ran")
+        const tempArr = []
         const querySnapshot = await getDocs(collection(db, "tweets"))
         querySnapshot.forEach((doc) => {
           console.log(doc.id, " => ", doc.data())
-          setTweets((prevTweets) => {
-            return [...prevTweets, doc.data()]
-          })
+          tempArr.push(doc.data())
         })
+        setTweets(tempArr)
       }
 
       console.log("use effect fired -- fetching tweets")
@@ -28,12 +28,16 @@ function Timeline({ db }) {
   }, [db])
 
   const tweetDivs = tweets.map((tweet, index) => {
+    // console.log({
+    //   message: tweet.message,
+    //   uploadImgURL: tweet.imageUrl,
+    // })
     return (
       <Tweet
         message={tweet.message}
         user={tweet.user}
-        userImgURL={tweet.photoURL}
-        uploadImgURL={tweet.imageUrl}
+        userImgURL={tweet.userPhotoURL}
+        uploadImgURL={tweet.imageURL}
         key={index}
       />
     )

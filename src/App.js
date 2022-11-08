@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 import {
@@ -55,22 +55,25 @@ function App() {
   //Initialize firebase authentication
   const authentication = getAuth()
 
-  onAuthStateChanged(authentication, (user) => {
-    if (user) {
-      //User is signed in
-      const newDisplayName = user.displayName
-      const newPhotoURL = user.photoURL
-      setUserInfo({
-        displayName: newDisplayName,
-        photoURL: newPhotoURL,
-      })
-    } else {
-      setUserInfo({
-        displayName: undefined,
-        photoURL: undefined,
-      })
-    }
-  })
+  useEffect(() => {
+    onAuthStateChanged(authentication, (user) => {
+      console.log("AUTH STATE CHANGE")
+      if (user) {
+        //User is signed in
+        const newDisplayName = user.displayName
+        const newPhotoURL = user.photoURL
+        setUserInfo({
+          displayName: newDisplayName,
+          photoURL: newPhotoURL,
+        })
+      } else {
+        setUserInfo({
+          displayName: undefined,
+          photoURL: undefined,
+        })
+      }
+    })
+  }, [authentication])
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider()
