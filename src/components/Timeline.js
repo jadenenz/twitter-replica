@@ -22,7 +22,7 @@ function Timeline({ db }) {
         })
       }
 
-      console.log("use effect fired")
+      console.log("use effect fired -- fetching tweets")
       getTweets()
     }
   }, [db])
@@ -32,18 +32,14 @@ function Timeline({ db }) {
       <Tweet
         message={tweet.message}
         user={tweet.user}
-        imgURL={tweet.photoURL}
+        userImgURL={tweet.photoURL}
+        uploadImgURL={tweet.imageUrl}
         key={index}
       />
     )
   })
 
-  return (
-    <div className="Timeline">
-      <h3>Timeline content goes here</h3>
-      {tweetDivs}
-    </div>
-  )
+  return <div className="Timeline">{tweetDivs}</div>
 }
 
 export default Timeline

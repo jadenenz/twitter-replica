@@ -1,11 +1,22 @@
 import React, { useState } from "react"
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, updateDoc } from "firebase/firestore"
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage"
 import imageSVG from "../svg/image.svg"
 
-function ComposeWindow({ db, userInfo }) {
+function ComposeWindow({ db, userInfo, authentication }) {
   const [formData, setFormData] = useState({
     message: "",
   })
+
+  const [currentUploadedImage, setCurrentUploadedImage] = useState()
+
+  //Init firebase storage
+  const storage = getStorage()
 
   const resetFormData = () => {
     setFormData({
@@ -13,18 +24,26 @@ function ComposeWindow({ db, userInfo }) {
     })
   }
 
+  const resetCurrentUploadedImage = () => {
+    setCurrentUploadedImage()
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
+
     try {
       const docRef = await addDoc(collection(db, "tweets"), {
         user: userInfo.displayName,
         message: formData.message,
-        photoURL: userInfo.photoURL,
+        userPhotoUrl: userInfo.photoURL,
       })
       console.log("Doccument written with ID: ", docRef.id)
+      //If the tweet has an attached image
+      handleImageUpload(docRef)
     } catch (e) {
       console.error("Error adding document: ", e)
     }
+    resetCurrentUploadedImage()
     resetFormData()
   }
 
@@ -36,6 +55,37 @@ function ComposeWindow({ db, userInfo }) {
         [name]: value,
       }
     })
+  }
+
+  const handleProcessingImage = (e) => {
+    const newImage = e.target.files[0]
+    setCurrentUploadedImage(newImage)
+  }
+
+  async function handleImageUpload(docRef) {
+    if (!currentUploadedImage) alert("Please choose a file first!")
+
+    try {
+      const filePath = `${authentication.currentUser.uid}/${docRef.id}/${currentUploadedImage.name}`
+      const newImageRef = ref(storage, filePath)
+      const fileSnapshot = await uploadBytesResumable(
+        newImageRef,
+        currentUploadedImage
+      )
+
+      //generate public URL for the file
+      const publicImageUrl = await getDownloadURL(newImageRef)
+
+      //Update tweet with image's URL
+      await updateDoc(docRef, {
+        imageUrl: publicImageUrl,
+      })
+    } catch (error) {
+      console.error(
+        "There was an error uploading a file to Cloud Storage:",
+        error
+      )
+    }
   }
 
   return (
@@ -62,6 +112,7 @@ function ComposeWindow({ db, userInfo }) {
                   <img
                     className="compose-window__svg-icon"
                     src={imageSVG}
+                    referrerPolicy="no-referrer"
                     alt="img upload button icon"
                   />
                 </label>
@@ -70,6 +121,7 @@ function ComposeWindow({ db, userInfo }) {
                   id="file-input"
                   type="file"
                   accept="image/png, image/jpeg"
+                  onChange={handleProcessingImage}
                 />
               </div>
             </div>

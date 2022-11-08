@@ -152,7 +152,11 @@ function App() {
       </div>
       <div className="layout__main">
         <div className="App">
-          <ComposeWindow db={db} userInfo={userInfo} />
+          <ComposeWindow
+            db={db}
+            userInfo={userInfo}
+            authentication={authentication}
+          />
           <Timeline db={db} />
         </div>
       </div>
