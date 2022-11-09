@@ -52,3 +52,22 @@
   border-radius: 15px;
   margin-top: 10px;
 }
+
+.tweet__likes {
+  display: flex;
+  align-items: center;
+}
+
+.tweet__likes-number-red {
+  color: #fa2c8b;
+}
+
+.tweet__heart-svg {
+  height: 19px;
+  margin-right: 12px;
+}
+
+.tweet__heart-svg-filled {
+  filter: invert(30%) sepia(60%) saturate(4520%) hue-rotate(315deg)
+    brightness(100%) contrast(96%);
+}

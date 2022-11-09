@@ -17,7 +17,11 @@ function Timeline({ db }) {
         const querySnapshot = await getDocs(collection(db, "tweets"))
         querySnapshot.forEach((doc) => {
           console.log(doc.id, " => ", doc.data())
-          tempArr.push(doc.data())
+          const docInfo = {
+            id: doc.id,
+            data: doc.data(),
+          }
+          tempArr.push(docInfo)
         })
         setTweets(tempArr)
       }
@@ -28,17 +32,16 @@ function Timeline({ db }) {
   }, [db])
 
   const tweetDivs = tweets.map((tweet, index) => {
-    // console.log({
-    //   message: tweet.message,
-    //   uploadImgURL: tweet.imageUrl,
-    // })
     return (
       <Tweet
-        message={tweet.message}
-        user={tweet.user}
-        userImgURL={tweet.userPhotoURL}
-        uploadImgURL={tweet.imageURL}
+        message={tweet.data.message}
+        user={tweet.data.user}
+        userImgURL={tweet.data.userPhotoURL}
+        uploadImgURL={tweet.data.imageURL}
         key={index}
+        likes={tweet.data.likes}
+        id={tweet.id}
+        db={db}
       />
     )
   })

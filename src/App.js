@@ -19,6 +19,7 @@ import "./css/blocks/sidebar-menu.css"
 import "./css/blocks/tweet.css"
 import "./css/blocks/trends-for-you.css"
 import "./css/blocks/compose-window.css"
+import "./css/blocks/profile.css"
 import twitterSVG from "./svg/twitter.svg"
 import homeSVG from "./svg/home.svg"
 import exploreSVG from "./svg/explore.svg"
@@ -31,6 +32,8 @@ function App() {
     displayName: "",
     photoURL: "",
   })
+
+  const [displayProfilePanel, setDisplayProfilePanel] = useState(false)
 
   const firebaseConfig = {
     apiKey: "AIzaSyAb0LqPzcFSz5CViR6Cf20PXHiyanOEN14",
@@ -111,6 +114,10 @@ function App() {
     }
   }
 
+  const toggleProfileDisplay = () => {
+    setDisplayProfilePanel(!displayProfilePanel)
+  }
+
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
@@ -151,7 +158,7 @@ function App() {
             />
             Messages
           </div>
-          <div className="sidebar-menu__item">
+          <div onClick={toggleProfileDisplay} className="sidebar-menu__item">
             <img
               src={profileSVG}
               alt="profile icon"
@@ -177,10 +184,12 @@ function App() {
             authentication={authentication}
           />
           <Timeline db={db} />
-          <Profile
-            authentication={authentication}
-            userDisplayName={userInfo.displayName}
-          />
+          {displayProfilePanel && (
+            <Profile
+              authentication={authentication}
+              userDisplayName={userInfo.displayName}
+            />
+          )}
         </div>
       </div>
       <RightSidebar />

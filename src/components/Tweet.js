@@ -1,16 +1,32 @@
-import React from "react"
+import React, { useState } from "react"
+import { doc, updateDoc } from "firebase/firestore"
+import likeSVG from "../svg/like.svg"
 
-function Tweet({ message, user, userImgURL, uploadImgURL }) {
-  // const lookInside = {
-  //   message: message,
-  //   user: user,
-  //   userImgURL: userImgURL,
-  //   uploadImgUrl: uploadImgUrl,
-  // }
+function Tweet({ message, user, userImgURL, uploadImgURL, likes, id, db }) {
+  const [tweetLiked, setTweetLiked] = useState(false)
 
-  // console.log(lookInside)
+  const tweetRef = doc(db, "tweets", `${id}`)
 
-  console.log(message, uploadImgURL, userImgURL)
+  async function handleLikeButton() {
+    if (!tweetLiked) {
+      await updateDoc(tweetRef, {
+        likes: likes + 1,
+      })
+    } else if (tweetLiked) {
+      await updateDoc(tweetRef, {
+        likes: likes,
+      })
+    }
+    setTweetLiked(!tweetLiked)
+  }
+
+  const heartClasses = tweetLiked
+    ? "tweet__heart-svg tweet__heart-svg-filled"
+    : "tweet__heart-svg"
+
+  const likeNumberClasses = tweetLiked
+    ? "tweet__likes-number tweet__likes-number-red"
+    : "tweet__likes-number"
 
   return (
     <div className="tweet">
@@ -34,6 +50,12 @@ function Tweet({ message, user, userImgURL, uploadImgURL }) {
             alt="user uploaded file"
           />
         )}
+        <div onClick={handleLikeButton} className="tweet__likes">
+          <img className={heartClasses} src={likeSVG} alt="heart" />
+          <div className={likeNumberClasses}>
+            {tweetLiked ? likes + 1 : likes}
+          </div>
+        </div>
       </div>
     </div>
   )

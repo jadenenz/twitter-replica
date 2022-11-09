@@ -1,0 +1,7 @@
+.profile {
+  position: absolute;
+  left: 31%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+}
