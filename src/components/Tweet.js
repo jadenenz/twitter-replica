@@ -23,7 +23,7 @@ function Tweet({ message, user, userImgURL, uploadImgURL }) {
       <div className="tweet__main">
         <div className="tweet__header">
           <div className="tweet__author-name">{user}</div>
-          <div className="tweet__author-slug">@placeholder</div>
+          <div className="tweet__author-slug">@{user}</div>
           <div className="tweet__publish-time">38m</div>
         </div>
         <div className="tweet__content">{message}</div>

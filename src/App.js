@@ -11,6 +11,7 @@ import {
 import ComposeWindow from "./components/ComposeWindow"
 import Timeline from "./components/Timeline"
 import RightSidebar from "./components/RightSidebar"
+import Profile from "./components/Profile"
 import "./css/global.css"
 import "./css/blocks/layout.css"
 import "./css/blocks/brand.css"
@@ -96,11 +97,26 @@ function App() {
       })
   }
 
+  const testUserInfo = () => {
+    const user = authentication.currentUser
+
+    if (user !== null) {
+      user.providerData.forEach((profile) => {
+        console.log("Sign-in provider: " + profile.providerId)
+        console.log("  Provider-specific UID: " + profile.uid)
+        console.log("  Name: " + profile.displayName)
+        console.log("  Email: " + profile.email)
+        console.log("  Photo URL: " + profile.photoURL)
+      })
+    }
+  }
+
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
         <button onClick={signInWithGoogle}>Sign in</button>
         <button onClick={signOutWithGoogle}>Sign out</button>
+        <button onClick={testUserInfo}>User Info</button>
         <img src={twitterSVG} alt="twitter icon" className="brand" />
         <div className="sidebar-menu">
           <div className="sidebar-menu__item sidebar-menu__item--active">
@@ -161,6 +177,10 @@ function App() {
             authentication={authentication}
           />
           <Timeline db={db} />
+          <Profile
+            authentication={authentication}
+            userDisplayName={userInfo.displayName}
+          />
         </div>
       </div>
       <RightSidebar />
