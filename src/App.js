@@ -131,7 +131,7 @@ function App() {
     onSnapshot(q, (snapshot) => {
       let tempArr = []
       snapshot.docs.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data())
+        // console.log(doc.id, " => ", doc.data())
         const docInfo = {
           id: doc.id,
           data: doc.data(),
@@ -144,7 +144,7 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(authentication, (user) => {
-      console.log("AUTH STATE CHANGE")
+      // console.log("AUTH STATE CHANGE")
       if (user) {
         //User is signed in
         const newDisplayName = user.displayName
@@ -166,7 +166,7 @@ function App() {
     const provider = new GoogleAuthProvider()
     signInWithPopup(authentication, provider)
       .then((result) => {
-        console.log(result)
+        // console.log(result)
       })
       .catch((err) => {
         console.log(err)
@@ -176,26 +176,26 @@ function App() {
   const signOutWithGoogle = () => {
     signOut(authentication)
       .then(() => {
-        console.log("sign out successful")
+        // console.log("sign out successful")
       })
       .catch((error) => {
         console.log(error)
       })
   }
 
-  const testUserInfo = () => {
-    const user = authentication.currentUser
+  // const testUserInfo = () => {
+  //   const user = authentication.currentUser
 
-    if (user !== null) {
-      user.providerData.forEach((profile) => {
-        console.log("Sign-in provider: " + profile.providerId)
-        console.log("  Provider-specific UID: " + profile.uid)
-        console.log("  Name: " + profile.displayName)
-        console.log("  Email: " + profile.email)
-        console.log("  Photo URL: " + profile.photoURL)
-      })
-    }
-  }
+  //   if (user !== null) {
+  //     user.providerData.forEach((profile) => {
+  //       console.log("Sign-in provider: " + profile.providerId)
+  //       console.log("  Provider-specific UID: " + profile.uid)
+  //       console.log("  Name: " + profile.displayName)
+  //       console.log("  Email: " + profile.email)
+  //       console.log("  Photo URL: " + profile.photoURL)
+  //     })
+  //   }
+  // }
 
   const toggleProfileDisplay = () => {
     setDisplayProfilePanel(!displayProfilePanel)

@@ -42,7 +42,7 @@ function ComposeWindow({ db, userInfo, authentication }) {
         userPhotoURL: userInfo.photoURL,
         timestamp: serverTimestamp(),
       })
-      console.log("Doccument written with ID: ", docRef.id)
+      // console.log("Doccument written with ID: ", docRef.id)
       //If the tweet has an attached image
       if (currentUploadedImage) {
         handleImageUpload(docRef)
