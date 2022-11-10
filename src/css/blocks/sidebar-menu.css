@@ -27,6 +27,10 @@
   margin-right: 20px;
 }
 
+.sidebar-menu__sign-out {
+  margin-left: 55px;
+}
+
 .sidebar-menu__item--active .sidebar-menu__item-icon {
   filter: invert(52%) sepia(90%) saturate(1952%) hue-rotate(177deg)
     brightness(95%) contrast(100%);

@@ -1,6 +1,9 @@
-function RightSidebar() {
+import Searchbar from "./Searchbar"
+
+function RightSidebar({ tweets, setSearchTerm }) {
   return (
     <div>
+      <Searchbar tweets={tweets} setSearchTerm={setSearchTerm} />
       <div className="layout__right-sidebar-container">
         <div className="layout__right-sidebar">
           <div className="trends-for-you">

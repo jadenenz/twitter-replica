@@ -1,0 +1,4 @@
+.searchbar {
+  grid-column: 3 /4;
+  /* position: fixed; */
+}
