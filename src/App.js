@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { initializeApp } from "firebase/app"
-import { getFirestore, getDocs, collection } from "firebase/firestore"
+import {
+  getFirestore,
+  getDocs,
+  collection,
+  query,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore"
 import {
   getAuth,
   signInWithPopup,
@@ -69,27 +76,70 @@ function App() {
   //Initialize firebase authentication
   const authentication = getAuth()
 
-  useEffect(() => {
-    if (!didInit) {
-      didInit = true
-      async function getTweets() {
-        console.log("getTweets() ran")
-        const tempArr = []
-        const querySnapshot = await getDocs(collection(db, "tweets"))
-        querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data())
-          const docInfo = {
-            id: doc.id,
-            data: doc.data(),
-          }
-          tempArr.push(docInfo)
-        })
-        setTweets(tempArr)
-      }
+  // useEffect(() => {
+  //   if (!didInit) {
+  //     didInit = true
+  //     async function getTweets() {
+  //       console.log("getTweets() ran")
+  //       let tempArr = []
 
-      console.log("use effect fired -- fetching tweets")
-      getTweets()
-    }
+  //       //collection ref
+  //       const colRef = collection(db, "tweets")
+
+  //       //query
+  //       const q = query(colRef, orderBy("timestamp", "desc"))
+
+  //       onSnapshot(q, (snapshot) => {
+  //         snapshot.docs.forEach((doc) => {
+  //           console.log(doc.id, " => ", doc.data())
+  //           const docInfo = {
+  //             id: doc.id,
+  //             data: doc.data(),
+  //           }
+  //           tempArr.push(docInfo)
+  //         })
+  //       })
+  //       setTweets(tempArr)
+  //     }
+
+  //  async function getTweets() {
+  //    console.log("getTweets() ran")
+  //    const tempArr = []
+  //    const querySnapshot = await getDocs(collection(db, "tweets"))
+  //    querySnapshot.forEach((doc) => {
+  //      console.log(doc.id, " => ", doc.data())
+  //      const docInfo = {
+  //        id: doc.id,
+  //        data: doc.data(),
+  //      }
+  //      tempArr.push(docInfo)
+  //    })
+  //    setTweets(tempArr)
+  //  }
+
+  //     console.log("use effect fired -- fetching tweets")
+  //     getTweets()
+  //   }
+  // }, [db])
+
+  useEffect(() => {
+    // collection ref
+    const colRef = collection(db, "tweets")
+
+    //query
+    const q = query(colRef, orderBy("timestamp", "desc"))
+    onSnapshot(q, (snapshot) => {
+      let tempArr = []
+      snapshot.docs.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data())
+        const docInfo = {
+          id: doc.id,
+          data: doc.data(),
+        }
+        tempArr.push(docInfo)
+      })
+      setTweets(tempArr)
+    })
   }, [db])
 
   useEffect(() => {
@@ -245,20 +295,3 @@ function App() {
 }
 
 export default App
-
-//Figure out how to manipulate images uploaded by input: file for tweeting pictures!!!
-//Proptypes when props become more complex !! user authentication works for now but will be improved soon.
-
-//Setup the ability to compose a tweet, have it store in database, and have it show up on Timeline.
-
-//Functionality to add:
-
-//Composing tweets
-//...Tweets are stored in documents based on user and displayed for those following each user?
-//...Or I have a universal timeline instead and a fake following feature that does nothing but shows you who you're following
-
-//Ability to set a profile, including a pfp
-
-//DM's maybe?
-
-//Notifications

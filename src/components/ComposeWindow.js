@@ -1,5 +1,10 @@
 import React, { useState } from "react"
-import { collection, addDoc, updateDoc } from "firebase/firestore"
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore"
 import {
   getDownloadURL,
   getStorage,
@@ -35,6 +40,7 @@ function ComposeWindow({ db, userInfo, authentication }) {
         user: userInfo.displayName,
         message: formData.message,
         userPhotoURL: userInfo.photoURL,
+        timestamp: serverTimestamp(),
       })
       console.log("Doccument written with ID: ", docRef.id)
       //If the tweet has an attached image

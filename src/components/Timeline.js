@@ -11,6 +11,7 @@ function Timeline({ db, tweets, searchTerm }) {
       ) {
         return tweet
       }
+      return undefined
     })
     .map((tweet, index) => {
       return (
@@ -23,6 +24,7 @@ function Timeline({ db, tweets, searchTerm }) {
           likes={tweet.data.likes}
           id={tweet.id}
           db={db}
+          timestamp={tweet.data.timestamp}
         />
       )
     })

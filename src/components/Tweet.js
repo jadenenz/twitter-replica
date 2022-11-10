@@ -2,7 +2,16 @@ import React, { useState } from "react"
 import { doc, updateDoc } from "firebase/firestore"
 import likeSVG from "../svg/like.svg"
 
-function Tweet({ message, user, userImgURL, uploadImgURL, likes, id, db }) {
+function Tweet({
+  message,
+  user,
+  userImgURL,
+  uploadImgURL,
+  likes,
+  id,
+  db,
+  timestamp,
+}) {
   const [tweetLiked, setTweetLiked] = useState(false)
 
   const tweetRef = doc(db, "tweets", `${id}`)
@@ -19,6 +28,13 @@ function Tweet({ message, user, userImgURL, uploadImgURL, likes, id, db }) {
     }
     setTweetLiked(!tweetLiked)
   }
+
+  // const testTimestampToDate = timestamp?.toDate()
+
+  // const startTime = Date.now()
+  // const endTime = testTimestampToDate
+
+  // console.log(`Elapsed time: ${String(endTime - startTime)} milliseconds`)
 
   const heartClasses = tweetLiked
     ? "tweet__heart-svg tweet__heart-svg-filled"
@@ -40,7 +56,9 @@ function Tweet({ message, user, userImgURL, uploadImgURL, likes, id, db }) {
         <div className="tweet__header">
           <div className="tweet__author-name">{user}</div>
           <div className="tweet__author-slug">@{user}</div>
-          <div className="tweet__publish-time">38m</div>
+          <div className="tweet__publish-time">
+            {timestamp ? timestamp.toDate().toDateString() : "Wed Nov 08 2022"}
+          </div>
         </div>
         <div className="tweet__content">{message}</div>
         {uploadImgURL && (
