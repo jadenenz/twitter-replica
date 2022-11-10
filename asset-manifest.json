@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/twitter-replica/static/css/main.edcea4e2.css",
+    "main.js": "/twitter-replica/static/js/main.c4382933.js",
+    "static/media/more.svg": "/twitter-replica/static/media/more.20e2b1ad08354d90fe177b46585e916b.svg",
+    "static/media/profile.svg": "/twitter-replica/static/media/profile.c8eed17f53f32e15a447172829c00884.svg",
+    "static/media/twitter.svg": "/twitter-replica/static/media/twitter.70f7c2d8f1f163612177977b79145eae.svg",
+    "static/media/notifications.svg": "/twitter-replica/static/media/notifications.579be819d163b7ecd413aa8ae2d4a1bd.svg",
+    "static/media/like.svg": "/twitter-replica/static/media/like.25fab7a37c2667b3067740a58c81f8fb.svg",
+    "index.html": "/twitter-replica/index.html",
+    "static/media/explore.svg": "/twitter-replica/static/media/explore.965457997c32c1651c60ccacbfff3f07.svg",
+    "static/media/image.svg": "/twitter-replica/static/media/image.d1dda6a2601e4d95b332c26f5821fb65.svg",
+    "static/media/messages.svg": "/twitter-replica/static/media/messages.4e96599ad416eb03834568832f13e651.svg",
+    "static/media/home.svg": "/twitter-replica/static/media/home.d1b2da4d3f9a133c5fe605b0870e99c7.svg",
+    "main.edcea4e2.css.map": "/twitter-replica/static/css/main.edcea4e2.css.map",
+    "main.c4382933.js.map": "/twitter-replica/static/js/main.c4382933.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.edcea4e2.css",
+    "static/js/main.c4382933.js"
+  ]
+}
