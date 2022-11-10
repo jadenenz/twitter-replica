@@ -41,6 +41,7 @@ function ComposeWindow({ db, userInfo, authentication }) {
         message: formData.message,
         userPhotoURL: userInfo.photoURL,
         timestamp: serverTimestamp(),
+        likes: 0,
       })
       // console.log("Doccument written with ID: ", docRef.id)
       //If the tweet has an attached image

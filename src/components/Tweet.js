@@ -23,7 +23,7 @@ function Tweet({
       })
     } else if (tweetLiked) {
       await updateDoc(tweetRef, {
-        likes: likes,
+        likes: likes - 1,
       })
     }
     setTweetLiked(!tweetLiked)
@@ -70,9 +70,7 @@ function Tweet({
         )}
         <div onClick={handleLikeButton} className="tweet__likes">
           <img className={heartClasses} src={likeSVG} alt="heart" />
-          <div className={likeNumberClasses}>
-            {tweetLiked ? likes + 1 : likes}
-          </div>
+          <div className={likeNumberClasses}>{likes}</div>
         </div>
       </div>
     </div>
